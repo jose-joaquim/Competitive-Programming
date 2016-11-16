@@ -1,0 +1,15 @@
+#include <cstdio>
+#include <iostream>
+#include <map>
+#include <vector>
+
+using namespace std;
+
+typedef vector<int> vi;
+
+vector<vi> AdjList;
+
+int main(){
+
+  return 0;
+}

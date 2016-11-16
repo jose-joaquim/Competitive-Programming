@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define UNVISITED -1
+#define VISITED 1
+
+typedef vector<int> vi;
+
+vi dfs_num, dfs_parent, dfs_low, visited, S;
+map<int, vi> vet_SCC;
+int n, dfsNumberCount, nSCC;
+
+void tarjanSCC(int u){
+
+
+}
+
+int main(){
+  while(scanf("%d", &n) != EOF){
+    dfs_num.assign(n+1, UNVISITED);
+    
+  }
+  return 0;
+}

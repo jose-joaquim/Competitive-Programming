@@ -1,0 +1,17 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+typedef vector<int> vi;
+
+int n, m, a, b;
+vector<vi> AdjList;
+vi ga, gb;
+vi pnode;
+vector<bool> mark;
+
+int main(){
+
+
+  return 0;
+}

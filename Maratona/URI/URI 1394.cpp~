@@ -1,0 +1,14 @@
+#include <iostream>
+#include <cstdio>
+#include <vector>
+#include <string.h>
+#include <map>
+
+using namespace std;
+
+typedef pair<int, int> ii;
+typedef vector<int> vi;
+
+int main(){
+
+}
