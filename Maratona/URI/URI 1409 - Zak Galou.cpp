@@ -55,9 +55,9 @@ void dijkstra(int s){
     for(int i=0; i < (int)adj[v].size(); i++){
       int u = adj[v][i];
       if (dist[u] > w + peso[u]){
-	dist[u] = w + peso[u];
-	fila.push(ii(w+peso[u],u));
-	pai[u]=v;
+		dist[u] = w + peso[u];
+		fila.push(ii(w+peso[u],u));
+		pai[u]=v;
       }
     }
   }
@@ -117,12 +117,12 @@ int main(){
       build_path(n);
       int ans = 0;
       for(int i=0; i < (int)path.size(); i++){
-	int v = path[i];
-	for(int j=0; j < (int)adjm[v].size(); j++){
-	  int u = adjm[v][j];
-	  printf("u=%d vd%d\n",u,u);
-	  ans += dp(u,1);
-	}
+		int v = path[i];
+		for(int j=0; j < (int)adjm[v].size(); j++){
+		  int u = adjm[v][j];
+		  printf("u=%d vd%d\n",u,u);
+		  ans += dp(u,1);
+		}
       }
       printf("%d\n",ans);
     }
