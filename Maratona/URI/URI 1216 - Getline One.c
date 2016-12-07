@@ -1,3 +1,5 @@
+//Author/Autor: José Joaquim de Andrade Neto
+//Link da questão: https://www.urionlinejudge.com.br/judge/pt/problems/view/1216
 #include <stdio.h>
 
 int main(int argc, char **argv)
