@@ -1,184 +1,87 @@
-//Author/Autor: José Joaquim de Andrade Neto
-//Link da questão: https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1742
-
-#include <iostream>
-#include <cstdio>
-#include <string.h>
-#include <queue>
-#include <map>
-#include <sstream>
-#include <cmath>
-#include <string.h>
-#include <stdlib.h>
+//Author/Autor: Jos� Joaquim de Andrade Neto
+//Link da quest�o: https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1742
+#include <bits/stdc++.h>
 
 using namespace std;
 
 #define INF 1000000000
 
-typedef vector<int> vi;
 typedef pair<int, int> ii;
+typedef vector<int> vi;
+typedef vector<ii> vii;
 
-vector<vector<ii> > AdjList;
-//vector<vi> AdjList;
+int n, sink;
+int speed[6];
+vector<vii> AdjList;
+vector<vi> adjs;
 
-bool bb(vector<int> &A, int num){
-	int ini = 0, fim = A.size()-1, mid;
-	while(ini <= fim){
-		mid = (int)(ini + fim)/2;
-		if(A[mid] == num){
-			//puts("akjsd");
-			return true;
-		}
-		
-		if(num < A[mid]){
-			fim = mid - 1;
-		}else{
-			ini = mid + 1;
-		}
-	}
-	return false;
+void make_graph(){
+  for(int k = 0; k < n; k++){
+    int sz = (int) adjs[k].size(); 
+    for(int i = 0; i < sz; i++){
+      int u = adjs[k][i];
+      for(int j = i + 1; j < sz; j++){
+        int v = adjs[k][j];
+        AdjList[100*k + u].push_back(ii(100*k + v, (v - u)*speed[k]));
+        AdjList[100*k + v].push_back(ii(100*k + u, (v - u)*speed[k]));
+      }
+    }
+  }
+  for(int k = 0; k < n; k++){
+    int sz = (int) adjs[k].size();
+    for(int i = 0; i < sz; i++){
+      int look = adjs[k][i];
+      for(int j = k + 1; j < n; j++){
+        if(binary_search(adjs[j].begin(), adjs[j].end(), look)){
+          AdjList[100*k + look].push_back(ii(100*j + look, 60));
+          AdjList[100*j + look].push_back(ii(100*k + look, 60));
+        }
+      }
+    }
+  }
 }
 
-int main(int argc, char **argv)
-{
-	int n, k;
-	while(scanf("%d %d", &n, &k) != EOF){
-		AdjList.assign(k, vector<ii>());
-		vector<int> times;
-		int aux;
-		char s[1200];
-		for(int i = 0; i < n; i++){
-			cin >> aux;
-			times.push_back(aux);
-		}
-		/*printf("%d\n", times[1]);
-		system("pause");*/
-		fflush(stdin);
-		aux = 0;
-		gets(s);
-		while(aux < n){
-			fflush(stdin);
-			char *pch = strtok(s, " ");
-			while(pch != NULL){
-				int v = atoi(pch);
-				//printf("%d %d %d\n", v, times[aux], v*times[aux]);
-				AdjList[aux].push_back(make_pair(v, v*times[aux]));
-				pch = strtok(NULL, " ");
-			}
-			aux++;
-			gets(s);
-		}
-		//printf("%d KK\n", AdjList[0][6].second);
-		vi dist(k, INF); dist[0] = 0;
-		priority_queue<ii, vector<ii>, greater<ii> > pq;
-		pq.push(ii(0, 0));
-		while(!pq.empty()){
-			ii front = pq.top(); pq.pop();
-			int d = front.first, u = front.second;
-			if(d > dist[u]) continue;
-			//puts("xxx");
-			for(int i = 0; i < (int) AdjList[u].size(); i++){
-				ii v = AdjList[u][i];
-				//printf("%d %d %d\n", dist[u], v.first, dist[v.second]);
-				if(dist[u] + v.second + 60 < dist[v.first]){
-					//puts("entrei");
-					dist[v.first] = dist[u] + v.second + 60;
-					pq.push(ii(v.first, dist[v.first]));
-				}
-			}
-		}
-		for(int i = 0; i < k; i++){
-			printf("%d ", dist[i]);
-		}
-		puts("");
-		printf("OIE %d\n", dist[k]);
-		/*AdjList.assign(n, vector<ii>());
-		vector<int> times;
-		vector<vi> floors;
-		floors.assign(n, vi());
-		vi destinos, results;
-		int aux;
-		char s[1000];
-		for(int i = 0; i < n; i++){
-			cin >> aux;
-			times.push_back(aux);
-		} 
-		fflush(stdin);
-		aux = 0;
-		gets(s);
-		while(aux < n){
-			//if(!strcmp(s, "\n")) break;
-			fflush(stdin);
-			char *pch = strtok(s, " ");
-			while(pch != '\0'){
-				//int K = atoi(pch);
-				//printf("K EH %d\n", K);
-				floors[aux].push_back(atoi(pch));
-				//printf("colocando em %d\n", aux);
-				//puts("oi");
-				pch = strtok(NULL, " ");
-			}
-			aux++;
-			//printf("aux eh %d\n", aux);
-			gets(s);
-		}
-		//puts("asXXdas");
-		for(int l = 0; l < n; l++){
-			for(int i = 0; i < (int)floors[l].size(); i++){//to no vertice (elevador) l, e vou
-				//puts("FORFOR");
-				int floor = floors[l][i];				   //observar os i's andares que ele passa
-				for(int j = l+1; j < n; j++){
-					//printf("to comparando o elevador %d com %d\n", l, j);
-					//printf("vou procurar pelo andar %d no elevador %d\n", floor, j);
-					if(bb(floors[j], floor)){//se o elevador l tem um andar em coincidencia com o elevador j, entao conecto eles
-						//puts("nada");
-						//printf("vou inserir %d e %d em %d\n", j, floor, l);
-						AdjList[l].push_back(make_pair(j, floor));//j eh o andar destino, floor eh o andar
-					}						
-				}
-			}
-		}
-		//puts("kk");
-		//agora vou verificar quais dos elevadores possuem o andar final
-		//eu poderia ter feito isso dentros dos for's acima, mas so pra nao ficar 
-		//mais complexo vou fazer aqui mesmo num O(V + E)
-		for(int i = 0; i < n; i++){
-			for(int j = 0; j < (int) floors[i].size(); j++){
-				//printf("comparando %d com %d\n", floors[i][j], k);
-				if(floors[i][j] == k){//se o vertice destino (AdjList[i][j].first) vai ate o andar destino
-					destinos.push_back(floors[i][j]);//eu o coloco na lista de destinos
-					//printf("vou adicionar em %d com %d e %d\n", i, j, floors[i][j]);
-					AdjList[i].push_back(make_pair(j, k));
-				}
-			}
-		}
-		
-		for(int i = 0; i < (int) destinos.size(); i++){//faço um dijkstra pra cada destino e depois vejo qual o menor deles
-			puts("entrei aqui");
-			vi dist(n, INF); dist[0] = 0;
-			priority_queue<ii, vector<ii>, greater<ii> > pq;
-			pq.push(ii(0, 0));
-			//int andarAtual = 0;
-			while(!pq.empty()){
-				ii front = pq.top(); pq.pop();
-				int d = front.first, u = front.second;//d eh o peso (no caso, o andar atual) e u eh o vertice origem
-				//printf("%d %d\n", d, u);
-				if(d > dist[u]) continue;
-				//printf("d eh %d e u eh %d\n", d, u);
-				for(int j = 0; j < (int) AdjList[u].size(); j++){
-					ii v = AdjList[u][j];
-					if(dist[u] + (fabs(v.second - d) * times[v.first]) < dist[v.first]){//a multiplicacao nos parenteses siginfica lá o tempo das paradas
-						dist[v.first] = dist[u] + (fabs(v.second - d) * times[v.first]);
-						pq.push(ii(dist[v.first], v.first));
-					}
-				}
-			}
-			results.push_back(dist[destinos[i]]);
-		}
-		puts("eoq");
-		for(int i = 0; i < (int) results.size(); i++){
-			printf("%d ", results[i]);
-		}*/
-	}
-	return 0;
+int main(){
+  while(scanf("%d %d", &n, &sink) != EOF){
+    AdjList.assign(10005, vii());
+    adjs.assign(6, vi());
+    for(int i = 0; i < n; i++){
+      scanf("%d", &speed[i]);
+    }
+    cin.ignore();
+    for(int i = 0; i < n; i++){
+      string line, number; getline(cin, line);
+      istringstream ss(line);
+      while(ss >> number){
+        adjs[i].push_back(atoi(number.c_str()));
+      }
+    }
+    make_graph();
+    priority_queue<ii, vector<ii>, greater<ii> > pq;
+    vi dist(10005, INF);
+    for(int i = 0; i < n; i++){
+      if(adjs[i][0] == 0){
+        pq.push(ii(0, 100*i));
+        dist[100*i] = 0;
+      }
+    }
+    while(!pq.empty()){
+      ii front = pq.top(); pq.pop();
+      int d = front.first, u = front.second;
+      if(d > dist[u]) continue;
+      for(int j = 0; j < AdjList[u].size(); j++){
+        ii v = AdjList[u][j];
+        if(dist[u] + v.second < dist[v.first]){
+          dist[v.first] = dist[u] + v.second;
+          pq.push(ii(dist[v.first], v.first));
+        }
+      }
+    }
+    int ans = INF;
+    for(int i = 0; i < n; i++){
+      ans = min(ans, dist[100*i + sink]);
+    }
+    printf(ans == INF ? "IMPOSSIBLE\n" : "%d\n", ans);
+  }
+  return 0;
 }
