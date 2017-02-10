@@ -1,3 +1,5 @@
+//Author/Autor: José Joaquim de Andrade Neto
+//Link da questão: https://www.urionlinejudge.com.br/judge/pt/problems/view/1391
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -30,10 +32,6 @@ void dijkstra(vector<vii> &AdjListx, vector<int> &dist, int source){
       }
     }      
   }
-}
-
-void dijkstra2(int **graph, int *dist, int source){
-
 }
 
 bool isInSSSP(int u, int v){
