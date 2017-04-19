@@ -1,0 +1,11 @@
+#include <cstring>
+#include <iostream>
+#include <cstdio>
+#include <map>
+
+using namespace std;
+
+int main(){
+
+  return 0;
+}

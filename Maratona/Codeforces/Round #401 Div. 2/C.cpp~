@@ -1,0 +1,27 @@
+#include <cstdio>
+#include <iostream>
+#include <vector>
+#include <map>
+
+using namespace std;
+
+typedef vector<int> vi;
+
+int n, m;
+vector<vi> ad;
+
+int main(){
+  cin >> n >> m;
+  ad.assign(n + 1, vi(m));
+  for(int i = 1; i <= n; i++){
+    for(auto &x : ad[i]){
+      cin >> x;
+    }
+  }
+  for(int col = 1; col <= m; col++){
+    for(int row = 1; row <= n; row++){
+
+    }
+  }
+  return 0;
+}

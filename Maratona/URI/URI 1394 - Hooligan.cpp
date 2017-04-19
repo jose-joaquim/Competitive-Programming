@@ -1,3 +1,5 @@
+//Author/Autor: José Joaquim de Andrade Neto
+//Link da questão: https://www.urionlinejudge.com.br/judge/pt/problems/view/1394
 #include <assert.h>
 #include <cstdio>
 #include <vector>
