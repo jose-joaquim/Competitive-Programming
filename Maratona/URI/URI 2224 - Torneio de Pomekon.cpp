@@ -1,65 +1,55 @@
 //Author/Autor: José Joaquim de Andrade Neto
 //Link da questão: https://www.urionlinejudge.com.br/judge/pt/problems/view/2224
-#include <iomanip>
 #include <algorithm>
-#include <cstdio>
-#include <iostream>
 #include <cmath>
-#include <vector>
-
+#include <cstdio>
+#include <cstring>
 using namespace std;
 
-typedef pair<double, double> dd;
-
-const int MXV = 1 << 16;
-
-double memo[17][1 << 17];
-double coord[17][2];
-int q;
+int N, target;
+double memo[1 << 16];
+double x[20], y[20];
 
 double dist(double a, double a2, double b, double b2){
   return sqrt(pow(a - b, 2) + pow(a2 - b2, 2));
 }
 
-double solve(int i, int mask){
-  if(mask == (1 << q) - 1){
-    return 0;
-  }
-
-  double &ret = memo[i][mask];
-
+double solve(int mask) {
+  
+  if (mask == ((1 << N) - 1))
+    return memo[mask] = 0;
+  
+  double &ret = memo[mask];
   if(ret == -1){
-    double ans = 2000000000;
-    for(int i = 0; i < q; i++){
-      if(!(mask & (1 << i))){
-        for(int j = i + 1; j < q; j++){
-          if(!(mask & (1 << j))){
-            double pl = dist(coord[i][0], coord[i][1], coord[j][0], coord[j][1]);
-            ans = min(ans, pl + solve(i + 1, mask | (1 << i) | (1 << j)));
-          }
-        }
-      }
+    double ans = 2000000000.0;
+    int p1, p2;
+    
+    for (p1 = 0; p1 < N; p1++){
+      if (!(mask & (1 << p1))) break;
+    }
+    
+    for (p2 = p1 + 1; p2 < N; p2++){
+      if (!(mask & (1 << p2)))
+        ans = min(ans, dist(x[p1], y[p1], x[p2], y[p2]) + solve(mask | (1 << p1) | (1 << p2)));
     }
     ret = ans;
   }
-
-  return ret;
+  
+  return memo[mask];
 }
 
-int main(){
+int main() {
+  
   int T; scanf("%d", &T);
   while(T--){
-    scanf("%d", &q);
-
-    for(int i = 0; i < q; i++){
-      cin >> coord[i][0] >> coord[i][1];
+    scanf("%d", &N);
+    for (int i = 0; i < N; i++){
+      scanf("%lf %lf", &x[i], &y[i]);
     }
-    for(int i = 0 ; i < 17; i++){
-      for(int j = 0; j < (1 << 17); j++){
-        memo[i][j] = -1.0;
-      }
-    }
-    printf("%.2lf\n", solve(0, 0));
+    
+    for (int i = 0; i < (1 << 16); i++) memo[i] = -1.0;
+    printf("%.2lf\n", solve(0));
   }
   return 0;
 }
+
