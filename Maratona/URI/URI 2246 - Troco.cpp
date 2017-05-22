@@ -37,6 +37,7 @@ bool solve(int j, int sum){
 
   return dp[sum][j];
 }
+
 int main(){
   ios::sync_with_stdio(false);
   cin >> v >> m;
@@ -44,3 +45,32 @@ int main(){
   cout << (solve(m, v) ? "S" : "N") << '\n';
   return 0;
 }
+
+/*#include <bitset>
+#include <cstdio>
+ 
+using namespace std;
+ 
+int main() {
+  bitset<100001> b;
+  b[0] = true;
+ 
+  int v, m;
+  scanf("%d %d", &v, &m);
+
+  bool done = false;
+  while (m--){
+    int moeda;
+    scanf("%d", &moeda);
+    b |= b << moeda;
+
+    if (b[v]) {
+      printf("S\n");
+      done = true;
+      break;
+    }
+  }
+
+  if (!done)
+    printf("N\n");
+}*/
