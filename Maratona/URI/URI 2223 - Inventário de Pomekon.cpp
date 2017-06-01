@@ -7,7 +7,7 @@
 
 using namespace std;
 
-const int MAXN = 100005;
+const int MAXN = 100006;
 
 struct node{
   int val;
