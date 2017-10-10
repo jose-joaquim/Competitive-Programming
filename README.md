@@ -1,3 +1,4 @@
+
 COMPETITIVE PROGRAMMING - MARATONA DE PROGRAMAÇÃO
 ==================================================================
 
@@ -6,6 +7,8 @@ Please, you can look, copy, even tell that you solved the question by yourself. 
 However, do not do this unless you've already **UNDERSTOOD COMPLETELY** why the code works fine. This is the most important part of the knowledge.
 You can email to me if you don't understand something and i'll try to help you. Don't be shy! =)
 
+Looking for a material to study? [Give a look on my other repository](https://github.com/jjaneto/ArcevoMaratona) (most of texts are in portuguese). :smile:
+
 Greate code to everybody!!
 
 Olá pessoal! Esse é o meu Git que contém todas as questões que eu resolvi durante meu treino para ICPC - Maratona de programação.
@@ -13,8 +16,11 @@ Por favor, você pode olhar, copiar, até mesmo dizer que resolveu a questão po
 No entanto, não faça isso a menos que você tinha **ENTENDIDO COMPLETAMENTE** porquê o código funciona corretamente. Essa é a parte mais importante do conhecimento.
 Você pode enviar um email para mim caso não tenha entendido algo que eu tentarei te ajudar. Não seja tímido! =)
 
+Procurando um material para estudar? [Você pode achá-lo em meu outro repositório](https://github.com/jjaneto/ArcevoMaratona).  :smile:
+
 Bom código para todos!!
 
 <h4> :tada: :balloon:
 
 > Email: jjaneto@dcomp.ufs.br
+
